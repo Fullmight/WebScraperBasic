@@ -5,26 +5,29 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 # specify the url
-quote_page = 'http://www.wowstats.org/ships/'
+page_url = 'http://www.wowstats.org/ships/'
 
 # query website and return html to variable 'page'
-page = urlopen(quote_page)
+page = urlopen(page_url)
 
 # parse the html using beautiful soup and store in variable 'soup'
-soup = BeautifulSoup(page, 'html.parser')
+soupObj = BeautifulSoup(page, 'html.parser')
 
 # remove the <div> of name and return its value
-name_box = soup.find('title')
+siteName = soupObj.find('title')
 
+#site name test print
 #if name_box:
     #name = name_box..strip()  # strip() removes starting and trailing
     #print(name)
 
 # get index price
 
-price_box = soup.find('tr', {"style":"height:35px;"})
-if price_box:
-    price = price_box.get_text(separator=':').encode("utf-8")
+# Whatever your key information is, it goes in here. create more
+# in the same Vein if needed.
+coreDataVar = soupObj.find('tr', {"style": "height:35px;"})
+if coreDataVar:
+    price = coreDataVar.get_text(separator=':').encode("utf-8")
     #print(price)
 
 finalList = price.splitlines()
